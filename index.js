@@ -1,37 +1,37 @@
-let isHover: boolean = false;
-window.onload = () => {
+var isHover = false;
+window.onload = function () {
     giftLoto();
-}
-function giftLoto(): void {
-    let giftArr: number[] = [7, 1, 5, 8, 4, 2, 6, 0, 3, 9];
+};
+function giftLoto() {
+    var giftArr = [7, 1, 5, 8, 4, 2, 6, 0, 3, 9];
     document.getElementById('body').innerHTML += "<div id='giftContainer'></div>";
     document.getElementById('giftContainer').innerHTML += "<input type= 'button' id='shuffleBtn' value='shuffle'>";
     document.getElementById('giftContainer').innerHTML += "<div id= 'giftGrid'></div>";
     document.getElementById('giftContainer').innerHTML += "<div id= 'winningGiftLine'></div>";
-    document.getElementById('shuffleBtn').addEventListener('click', () => shuffleGifts(giftArr));
-    giftArr.sort((num1, num2) => num2 - num1);
+    document.getElementById('shuffleBtn').addEventListener('click', function () { return shuffleGifts(giftArr); });
+    giftArr.sort(function (num1, num2) { return num2 - num1; });
     printGiftsAndAddEvents(giftArr, '+');
 }
-function shuffleGifts(arr: number[]): void {
-    arr.sort(() => 0.5 - Math.random());
+function shuffleGifts(arr) {
+    arr.sort(function () { return 0.5 - Math.random(); });
     document.getElementById('giftGrid').innerHTML = '';
     document.getElementById('winningGiftLine').textContent = "";
     printGiftsAndAddEvents(arr);
 }
-function printGiftsAndAddEvents(arr: number[], param?: string): void {
-    for (let i = 0; i < 10; i++) {
-        document.getElementById('giftGrid').innerHTML += param ? `<div id='gift${arr[i]}' class='gift'>${arr[i]}</div>` : `<div id='gift${arr[i]}' class='gift'></div>`;
+function printGiftsAndAddEvents(arr, param) {
+    for (var i = 0; i < 10; i++) {
+        document.getElementById('giftGrid').innerHTML += param ? "<div id='gift" + arr[i] + "' class='gift'>" + arr[i] + "</div>" : "<div id='gift" + arr[i] + "' class='gift'></div>";
     }
     if (!param) {
-        for (let i = 0; i < 10; i++) {
-            let gift: string = document.getElementsByClassName('gift')[i].id;
+        for (var i = 0; i < 10; i++) {
+            var gift = document.getElementsByClassName('gift')[i].id;
             document.getElementsByClassName('gift')[i].addEventListener("click", pickGift.bind(this, arr[i]));
             document.getElementsByClassName('gift')[i].addEventListener("mouseover", hover.bind(this, gift));
             document.getElementsByClassName('gift')[i].addEventListener("mouseout", hover.bind(this, gift));
         }
     }
 }
-function pickGift(param: number): void {
+function pickGift(param) {
     switch (param) {
         case (1): {
             document.getElementById('winningGiftLine').textContent = "נמוך מידי";
@@ -70,7 +70,7 @@ function pickGift(param: number): void {
         }
     }
 }
-function hover(param: string): void {
+function hover(param) {
     isHover = !isHover;
     isHover ? document.getElementById(param).style.boxShadow = '#aaa 5px 5px 5px' : document.getElementById(param).removeAttribute('style');
 }
